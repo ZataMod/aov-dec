@@ -78,21 +78,18 @@ def auto(file_path):
         if all_code[0:3] == JG.MAGIC:
             new_code = JG.decrypt(all_code, JG.get_name(file_path))
             with open(file_path, "wb") as f: f.write(new_code)
-            print("\33[1;32mDECRYPT AES", file_path)
+            print("\33[1;32mDECRYPT AES\33[1;39m", file_path)
         elif all_code[0:4] == b"\"J\x00\xef":
             new_code = ZSTD.dec(all_code)
             with open(file_path, "wb") as f: f.write(new_code)
-            print("\33[1;32mDECOMPRESS ZSTD", file_path)
+            print("\33[1;32mDECOMPRESS ZSTD\33[1;39m", file_path)
         else:
             new_code = ZSTD.com(all_code)
             with open(file_path, "wb") as f: f.write(new_code)
-            print("\33[1;36mENCOMPRESS ZSTD", file_path)
+            print("\33[1;36mENCOMPRESS ZSTD\33[1;39m", file_path)
             
     except Exception as e:
-        print(f"\33[1;31mERROR {file_path}: {e}")
-
-    print("\33[1;39m")
-
+        print(f"\33[1;31mERROR {file_path}: {e}\33[1;39m")
 
 def mode(file_path, mode):
     try:
@@ -104,16 +101,16 @@ def mode(file_path, mode):
 
         if mode == "COM_ZSTD":
             new_code = ZSTD.com(all_code)
-            msg = "\33[1;36mENCOMPRESS ZSTD"
+            msg = "\33[1;36mENCOMPRESS ZSTD\33[1;39m"
         elif mode == "DEC_ZSTD":
             new_code = ZSTD.dec(all_code)
-            msg = "\33[1;32mDECOMPRESS ZSTD"
+            msg = "\33[1;32mDECOMPRESS ZSTD\33[1;39m"
         elif mode == "ENC_AES":
             new_code = JG.encrypt(all_code, JG.get_name(file_path))
-            msg = "\33[1;36mENCRYPT AES"
+            msg = "\33[1;36mENCRYPT AES\33[1;39m"
         elif mode == "DEC_AES":
             new_code = JG.decrypt(all_code, JG.get_name(file_path))
-            msg = "\33[1;32mDECRYPT AES"
+            msg = "\33[1;32mDECRYPT AES\33[1;39m"
         else:
             return
 
@@ -122,6 +119,4 @@ def mode(file_path, mode):
         print(msg, file_path)
         
     except Exception as e:
-        print(f"\33[1;31mERROR {file_path}: {e}")
-
-    print("\33[1;39m")
+        print(f"\33[1;31mERROR {file_path}: {e}\33[1;39m")
