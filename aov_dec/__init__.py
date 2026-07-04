@@ -100,17 +100,30 @@ def mode(file_path, mode):
             return
 
         if mode == "COM_ZSTD":
+            if all_code[0:4] == b"\"J\x00\xef":
+                raise ValueError("File đã được nén ZSTD")
             new_code = ZSTD.com(all_code)
             msg = "\33[1;36mCOMPRESS ZSTD\33[1;39m"
+
         elif mode == "DEC_ZSTD":
-            new_code = ZSTD.dec(all_code)
-            msg = "\33[1;32mDECOMPRESS ZSTD\33[1;39m"
+            if all_code[0:4] == b"\"J\x00\xef":
+                new_code = ZSTD.dec(all_code)
+                msg = "\33[1;32mDECOMPRESS ZSTD\33[1;39m"
+            else:
+                raise ValueError("File không phải là file ZSTD")
+
         elif mode == "ENC_AES":
+            if all_code[0:3] == JG.MAGIC:
+                raise ValueError("File đã được mã hóa AES")
             new_code = JG.encrypt(all_code, JG.get_name(file_path))
             msg = "\33[1;36mENCRYPT AES\33[1;39m"
+
         elif mode == "DEC_AES":
-            new_code = JG.decrypt(all_code, JG.get_name(file_path))
-            msg = "\33[1;32mDECRYPT AES\33[1;39m"
+            if all_code[0:3] == JG.MAGIC:
+                new_code = JG.decrypt(all_code, JG.get_name(file_path))
+                msg = "\33[1;32mDECRYPT AES\33[1;39m"
+            else:
+                raise ValueError("File không phải là file AES")
         else:
             return
 
