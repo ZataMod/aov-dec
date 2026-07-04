@@ -91,6 +91,8 @@ def auto(file_path):
     except Exception as e:
         print(f"\33[1;31mERROR {file_path}: {e}")
 
+    print("\33[1;39m")
+
 
 def mode(file_path, mode):
     try:
@@ -121,3 +123,5 @@ def mode(file_path, mode):
         
     except Exception as e:
         print(f"\33[1;31mERROR {file_path}: {e}")
+
+    print("\33[1;39m")
