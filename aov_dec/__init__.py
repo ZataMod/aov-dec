@@ -86,7 +86,7 @@ def auto(file_path):
         else:
             new_code = ZSTD.com(all_code)
             with open(file_path, "wb") as f: f.write(new_code)
-            print("\33[1;36mENCOMPRESS ZSTD\33[1;39m", file_path)
+            print("\33[1;36mCOMPRESS ZSTD\33[1;39m", file_path)
             
     except Exception as e:
         print(f"\33[1;31mERROR {file_path}: {e}\33[1;39m")
@@ -101,7 +101,7 @@ def mode(file_path, mode):
 
         if mode == "COM_ZSTD":
             new_code = ZSTD.com(all_code)
-            msg = "\33[1;36mENCOMPRESS ZSTD\33[1;39m"
+            msg = "\33[1;36mCOMPRESS ZSTD\33[1;39m"
         elif mode == "DEC_ZSTD":
             new_code = ZSTD.dec(all_code)
             msg = "\33[1;32mDECOMPRESS ZSTD\33[1;39m"
